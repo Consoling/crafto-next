@@ -1,7 +1,7 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthedContext';
 import { useRouter } from 'next/navigation';
 import { BarLoader } from 'react-spinners';
 
@@ -10,17 +10,17 @@ interface ProtectedRouteProps {
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-    const { authStatus } = useAuth();
+    const { isAuthenticated } = useAuth();
     const router = useRouter();
 
     useEffect(() => {
-        if (authStatus === false) {
+        if (isAuthenticated === false) {
             router.push('/sign-in'); 
         }
-        console.log(authStatus)
-    }, [authStatus, router]);
+        console.log(isAuthenticated)
+    }, [isAuthenticated, router]);
 
-    if (authStatus === null) {
+    if (isAuthenticated === null) {
         return <div><BarLoader color="#7c30d2" /></div>; 
     }
 
