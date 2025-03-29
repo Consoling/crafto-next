@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react';
-import TopBar from '@/components/nav-bar';
+import TopBar from '@/components/navbars/nav-bar';
 import { motion } from 'framer-motion';
 import { FaDownload, FaEdit, FaWhatsapp, FaInstagram, FaFacebook, FaSave } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';

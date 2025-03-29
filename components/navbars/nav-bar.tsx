@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Search, Plus, User } from 'lucide-react';
-import { Input } from './ui/input';
+import { Input } from '../ui/input';
 
 
 const TopBar = () => {
