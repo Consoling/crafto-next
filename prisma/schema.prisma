@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String         @id @default(auto()) @map("_id") @db.ObjectId
+  isVerified     Boolean        @default(false)
+  phoneNumber    String?       @unique
+  password       String? 
+  username       String?        @unique
+  profilePicture String? // Nullable field
+  accessToken    String? // Nullable field
+  refreshToken   String? // Nullable field
+  language       String         @default("en")
+  accountType    AccountType    @default(Personal) // Enum for account type
+  isPremium      Boolean        @default(false)
+  createdAt      DateTime       @default(now())
+  preferences    Preferences?
+  savedTemplates UserTemplate[]
+
+  updatedAt DateTime @updatedAt
+}
+
+model Preferences {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  defaultFont String @default("Arial")
+  theme       String @default("light")
+  userId      String @unique @db.ObjectId
+  user        User   @relation(fields: [userId], references: [id])
+}
+
+model UserTemplate {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String
+  content String
+  userId  String @unique @db.ObjectId
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+// Enum for account type
+enum AccountType {
+  Personal
+  Business
+}

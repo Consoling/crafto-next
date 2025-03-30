@@ -39,7 +39,7 @@ const SignUp = () => {
 
       toast('Submitting...', { icon: '⏳' });
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_USER_SIGNUP_ROUTE}`, {
+      const response = await fetch(`/api/v1/sign-up`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const SignUp = () => {
         localStorage.setItem("access_token", result.accessToken);
         localStorage.setItem("_userId", result.userId);
         toast.success('Account created successfully!');
-        window.location.href = "/onboarding";
+        window.location.assign("/onboarding");
 
       } else {
 

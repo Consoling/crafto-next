@@ -44,7 +44,7 @@ const SignIn = () => {
       toast("Logging in...", { icon: "⏳" });
 
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_USER_SIGNIN_ROUTE}`,
+        `/api/v1/sign-in`,
         {
           method: "POST",
           headers: {
@@ -66,7 +66,7 @@ const SignIn = () => {
         localStorage.setItem("_userId", result.userId);
 
         toast.success("Logged in successfully!");
-        window.location.href = "/onboarding";
+        router.push("/onboarding");
       } else {
         toast.error(result.message || "Something went wrong");
       }

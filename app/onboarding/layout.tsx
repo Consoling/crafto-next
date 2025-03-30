@@ -4,6 +4,7 @@ import { useAuth } from "@/context/AuthedContext";
 import { useUser } from "@/context/UserContext";
 import { fetchUserData } from "@/utils/fetchUserData";
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 export default function SetupLayout({
   children,
@@ -12,10 +13,10 @@ export default function SetupLayout({
 }) {
   const { userId, userName } = useUser();
   const { isAuthenticated } = useAuth();
-  console.log("userId", userId);
-  console.log("userName", userName);
+ 
 
  if(!isAuthenticated) {
+  toast.error("You need to be logged in to access this page.");
     redirect("/sign-in");}
 
   if (userName) {
