@@ -58,7 +58,7 @@ const SignUp = () => {
         localStorage.setItem("access_token", result.accessToken);
         localStorage.setItem("_userId", result.userId);
         toast.success('Account created successfully!');
-        router.push('/onboarding')
+        window.location.href = "/onboarding";
 
       } else {
 

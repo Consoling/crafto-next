@@ -66,7 +66,7 @@ const SignIn = () => {
         localStorage.setItem("_userId", result.userId);
 
         toast.success("Logged in successfully!");
-        router.push("/onboarding");
+        window.location.href = "/onboarding";
       } else {
         toast.error(result.message || "Something went wrong");
       }
