@@ -13,7 +13,6 @@ interface AuthContextType {
 const AuthedContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // Initialize state with an empty string and load token only on client-side
   const [authToken, setAuthToken] = useState<string>('');
   const router = useRouter();
 

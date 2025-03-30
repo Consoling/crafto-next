@@ -10,6 +10,8 @@ import Link from 'next/link';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
+import { useAuth } from '@/context/AuthedContext';
+import { useUser } from '@/context/UserContext';
 
 const schema = z.object({
   phoneNumber: z.string().min(10, 'Phone number is required').regex(/^\+?[1-9]\d{1,14}$/, 'Invalid phone number'),
@@ -30,6 +32,8 @@ const SignUp = () => {
   });
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false);
+  const { setAuthToken } = useAuth();
+    const { setUserId, setUserName } = useUser();
   const onSubmit = async (data: FormData) => {
     try {
 
@@ -40,15 +44,21 @@ const SignUp = () => {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify(data),
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        // Success
+        setAuthToken(result.accessToken)
+        setUserId(result.userId);
+        setUserName(result.userName);
+        localStorage.setItem("user_name", result.userName);
+        localStorage.setItem("access_token", result.accessToken);
+        localStorage.setItem("_userId", result.userId);
         toast.success('Account created successfully!');
-        router.push('/home')
+        router.push('/onboarding')
 
       } else {
 
@@ -93,7 +103,7 @@ const SignUp = () => {
 
             <div className="mb-6 relative">
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Password"
                 {...register('password')}
                 className="w-full py-3 px-4 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-[#fd4878] focus:border-none "

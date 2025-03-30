@@ -10,21 +10,21 @@ import Image from 'next/image';
 const posts = [
   {
     id: 1,
-    image: '/assets/post1.jpg', // Static image from public/assets
+    image: '/assets/post1.jpg',
     caption: 'Beautiful scenery of nature 🌄',
     likes: 120,
     comments: 45,
   },
   {
     id: 2,
-    image: '/assets/post1.jpg', // Same image for all posts
+    image: '/assets/post1.jpg',
     caption: 'Delicious food to savor 🍽️',
     likes: 98,
     comments: 30,
   },
   {
     id: 3,
-    image: '/assets/post1.jpg', // Same image for all posts
+    image: '/assets/post1.jpg', 
     caption: 'A masterpiece of art 🎨',
     likes: 150,
     comments: 60,
@@ -34,6 +34,14 @@ const posts = [
 const tags = ['Nature', 'Travel', 'Food', 'Art', 'Music', 'Tech', 'Sports', 'Fashion', 'Photography', 'Lifestyle'];
 
 const HomePage = () => {
+  const handleDownload = (imageUrl: string, filename: string) => {
+    const link = document.createElement('a');
+    link.href = imageUrl;
+    link.download = filename || 'download.jpg';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
   return (
     <div className="relative min-h-screen bg-gray-50 flex flex-col">
       <TopBar />
@@ -87,7 +95,7 @@ const HomePage = () => {
                 {/* Horizontal Scrollable Section */}
                 <div className="flex space-x-4 justify-center overflow-x-auto bg-gray-100 p-2 rounded-md shadow-md">
                   {/* Download Button */}
-                  <Button className="flex items-center justify-center w-10 h-10 bg-white text-blue-500 hover:bg-blue-50 rounded-full shadow-md">
+                  <Button className="flex items-center justify-center w-10 h-10 bg-white text-blue-500 hover:bg-blue-50 rounded-full shadow-md" onClick={() => handleDownload(post.image, `post-${post.caption}.jpg`)}>
                     <FaDownload size={20} />
                   </Button>
 

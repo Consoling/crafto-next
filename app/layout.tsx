@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { AuthProvider } from "@/context/AuthedContext";
+import { UserProvider } from "@/context/UserContext";
+import { ModalProvider } from "@/providers/modal-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,8 +33,12 @@ export default function RootLayout({
         className={` ${geistPoppins.variable} antialiased`}
       >
         <AuthProvider>
+          <UserProvider>
           <main>  {children}</main>
           <Toaster />
+          <ModalProvider  />
+          </UserProvider>
+
         </AuthProvider>
       </body>
     </html>
