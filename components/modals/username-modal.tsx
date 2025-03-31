@@ -74,7 +74,7 @@ export const UsernameModal = () => {
       
 
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_USERNAME_UPDATE_ROUTE}`,
+        `/api/v1/update-username`,
         uservalues,
         {
           headers: {
